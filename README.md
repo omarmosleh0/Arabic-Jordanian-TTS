@@ -12,7 +12,7 @@ This pipeline transforms raw WhatsApp voice recordings into a production-ready T
 4. **Transcription**
 5. **Dataset Upload to Hugging Face**
 6. **Audio Tokenization**
-7. **Model Training (Cloud)**
+7. **Model Training **
 8. **Inference & Deployment**
 
 ## 📊 Pipeline Architecture
@@ -251,81 +251,6 @@ bash
 
 9. **Generate speech**: Open `8_inference_cpu.ipynb`
 
-## 📈 Results & Metrics
-
-- **Dataset Size**: ~500-1000 voice notes recommended
-- **Training Time**: ~4-6 hours on A10G
-- **Model Size**: ~500MB (0.5B parameters)
-- **Inference Speed**: ~5-10s per sentence (CPU)
-- **Audio Quality**: 16kHz, clear reproduction
-
-## 🎨 Interactive Pipeline Visualization
-
-### Recommended Tools:
-
-1. **Mermaid.js** (Best for GitHub README):
-
-markdown
-
-`````markdown
-````mermaid
-   graph TD
-       A[Raw OPUS Files] --> B[Flatten Script]
-       B --> C[WAV Conversion]
-       C --> D[Speaker Filter]
-       D --> E[Transcription]
-       E --> F[HF Upload]
-       F --> G[Tokenization]
-       G --> H[Training]
-       H --> I[Inference]
-````
-   
-2. **Draw.io / Excalidraw**:
-   - Create detailed flowchart
-   - Export as SVG
-   - Embed in `docs/pipeline.svg`
-
-3. **Interactive Web Diagram**:
-   - Use **Dagre-D3** or **Cytoscape.js**
-   - Host on GitHub Pages
-   - Add clickable nodes linking to files
-
-4. **Jupyter Widget** (for notebook users):
-````python
-   import ipywidgets as widgets
-   from IPython.display import display
-   
-   # Create interactive stage selector
-````
-
-### Example Mermaid Integration:
-
-Add this to your `README.md`:
-````markdown
-## 🔄 Pipeline Workflow
-```mermaid
-flowchart LR
-    A[📱 WhatsAppVoice Notes] -->|1_flatten.py| B[📁 FlatDirectory]
-    B -->|2_convert_to_wav.py| C[🎵 WAVFiles]
-    C -->|3_filter_by_speaker_lvls.py| D{🎯 SpeakerMatch?}
-    D -->|✅ Correct| E[✔️ VerifiedAudio]
-    D -->|❌ Rejected| F[🗑️ Discarded]
-    E -->|4_transcribe.py| G[📝 MetadataCSV]
-    G -->|5_push_to_hf.py| H[☁️ HuggingFaceDataset]
-    H -->|6_tokenization.py| I[🔢 TokenizedData]
-    I -->|7_modal_training.py| J[🧠 Fine-tunedModel]
-    J -->|8_inference.ipynb| K[🗣️ GeneratedSpeech]
-```
-````
-
-## 🐛 Common Issues & Solutions
-
-| Issue | Solution |
-|-------|----------|
-| Out of Memory (OOM) | Reduce batch size, use gradient checkpointing |
-| Poor transcription | Use dialect-specific prompts in Whisper |
-| Low speaker accuracy | Record longer anchor (30+ seconds) |
-| Slow tokenization | Process in smaller batches, use GPU |
 
 ## 🤝 Contributing
 
